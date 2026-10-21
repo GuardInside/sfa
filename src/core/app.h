@@ -47,6 +47,7 @@ namespace core
                 ;
             }
 
+            // Set new timer
             bool setTimer(unsigned long timeout, Event event, bool singleShoot = false)
             {
                 for (Timer & timer: _timers)
@@ -84,21 +85,23 @@ namespace core
             {
                 // timers
 
-                const unsigned int timestamp = millis();
+                const unsigned long timestamp = micros();
 
                 for (Timer & timer: _timers)
                 {
                     if (timer.isValid())
                     {
-                        if (timestamp - timer.timestamp > timer.timeout)
+                        if (timestamp - timer.timestamp >= timer.timeout)
                         {
-                            timer.timestamp = timestamp;
-
                             _eventGroup.setEvent(timer.event);
 
                             if (timer.singleShoot)
                             {
                                 timer.invalidate();
+                            }
+                            else
+                            {
+                                timer.timestamp += timer.timeout;
                             }
                         }
                     }
@@ -121,6 +124,11 @@ namespace core
                 {
                     serial(Serial);
                 }
+            }
+
+            void setEvent(Event event)
+            {
+                _eventGroup.setEvent(event);
             }
 
         private:

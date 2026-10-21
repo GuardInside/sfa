@@ -14,11 +14,11 @@ class CustomApp : public core::App
     public:
         CustomApp()
         {
-            setTimer(500, Event::Timeout1);
+            setTimer(500000, Event::Timeout1);
 
-            setTimer(1000, Event::Timeout2);
+            setTimer(1000000, Event::Timeout2);
 
-            setTimer(5000, Event::Timeout3, true);
+            setTimer(5000000, Event::Timeout3, true);
         }
 
         void event(core::Event event) override
