@@ -54,6 +54,7 @@ namespace core
                 {
                     if (!timer.isValid())
                     {
+                        timer.timestamp   = micros();
                         timer.timeout     = timeout;
                         timer.event       = event;
                         timer.singleShoot = singleShoot;
